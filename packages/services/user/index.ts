@@ -17,25 +17,17 @@ class UserService {
     const salt = crypto.randomBytes(16).toString("hex");
     const hashedPassword = this.hashedPassword(password, salt);
 
-    try {
-      const user = await this.insertUser(email, name, hashedPassword, salt);
-      return user.id;
-    } catch (error) {
-      throw error ;
-    }
+    const user = await this.insertUser(email, name, hashedPassword, salt);
+    return user.id;
   }
 
   public async loginUser(input: LoginUserInputSchema) {
     const { email, password } = await loginUserInputSchema.parseAsync(input);
-    try {
-      const user = await User.findOne({ email });
-      if(!user) throw new Error("User not found");
-      const hashedPassword = this.hashedPassword(password, user.salt);
-      if(hashedPassword !== user.password) throw new Error("Invalid password");
-      return user.id;
-    } catch (error) {
-      throw error;
-    }
+    const user = await User.findOne({ email });
+    if (!user) throw new Error("User not found");
+    const hashedPassword = this.hashedPassword(password, user.salt);
+    if (hashedPassword !== user.password) throw new Error("Invalid password");
+    return user.id;
   }
 }
 
