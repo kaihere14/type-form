@@ -41,7 +41,7 @@ export default function SignupPage() {
           <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <GalleryVerticalEndIcon className="size-4" />
           </div>
-          Acme Inc.
+          JAF
         </a>
         {error && (
           <div className="rounded-md border border-destructive bg-destructive/10 p-3 text-sm text-destructive">

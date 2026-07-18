@@ -20,7 +20,7 @@ function DashboardContent() {
   return (
     <div className="flex min-h-svh flex-col">
       <header className="flex items-center justify-between px-6 py-6 md:px-10">
-        <span className="text-sm font-semibold tracking-tight">Streamyst</span>
+        <span className="text-sm font-semibold tracking-tight">JAF</span>
         <Button variant="ghost" size="sm" onClick={() => router.push("/")}>
           Log out
         </Button>

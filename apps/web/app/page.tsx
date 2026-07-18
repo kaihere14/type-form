@@ -11,7 +11,7 @@ export default function Home() {
       />
 
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6 md:px-10">
-        <span className="text-sm font-semibold tracking-tight">Streamyst</span>
+        <span className="text-sm font-semibold tracking-tight">JAF</span>
         <nav className="flex items-center gap-2 text-sm">
           <Link href="/login" className="text-muted-foreground hover:text-foreground px-3 py-1.5 transition-colors">
             Log in
