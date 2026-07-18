@@ -150,3 +150,38 @@
     animation: none;
   }
 }
+
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(4%, 6%) scale(1.08);
+  }
+}
+
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-6%, -4%) scale(1.05);
+  }
+}
+
+.animate-drift-a {
+  animation: drift-a 18s ease-in-out infinite;
+}
+
+.animate-drift-b {
+  animation: drift-b 22s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift-a,
+  .animate-drift-b {
+    animation: none;
+  }
+}
