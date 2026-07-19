@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { CheckCircle2Icon } from "lucide-react"
 import { Button } from "~/components/ui/button"
 import { AmbientGlow, CheckBubble, DashMark, StarBubble, YesBubble } from "~/components/decor"
@@ -69,6 +69,20 @@ function DashboardContent() {
 }
 
 export default function DashboardPage() {
+  const router = useRouter()
+
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (!localStorage.getItem("accessToken") || !localStorage.getItem("refreshToken")) {
+      router.push("/login");
+    } else {
+      setChecked(true);
+    }
+  }, [router]);
+
+  if (!checked) return null;
+
   return (
     <Suspense>
       <DashboardContent />

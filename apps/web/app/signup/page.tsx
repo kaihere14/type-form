@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { SignupForm } from "~/components/signup-form"
@@ -23,7 +23,20 @@ export default function SignupPage() {
   const router = useRouter()
   const [error, setError] = useState("")
   const { mutateAsync } = useCreateUser()
-  async function  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) {
+      router.push("/dashboard");
+    } else {
+      setChecked(true);
+    }
+  }, [router]);
+
+  if (!checked) return null;
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     const formData = new FormData(e.currentTarget)
