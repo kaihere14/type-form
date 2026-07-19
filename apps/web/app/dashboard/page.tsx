@@ -11,10 +11,10 @@ import { AmbientGlow, CheckBubble, DashMark, StarBubble, YesBubble } from "~/com
 function DashboardDoodles() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden xl:block">
-      <YesBubble className="animate-in fade-in zoom-in-95 absolute top-[16%] left-[9%] size-24 -rotate-3 text-foreground/40 duration-700" />
-      <StarBubble className="animate-in fade-in zoom-in-95 absolute bottom-[18%] left-[7%] size-24 rotate-2 text-foreground/40 delay-150 duration-700" />
+      <YesBubble className="absolute top-[16%] left-[9%] size-24 -rotate-3 text-foreground/40" />
+      <StarBubble className="absolute bottom-[18%] left-[7%] size-24 rotate-2 text-foreground/40" />
       <DashMark className="absolute top-[12%] right-[14%] size-6 rotate-45 text-[var(--color-warm)]/70" />
-      <CheckBubble className="animate-in fade-in zoom-in-95 absolute top-[20%] right-[6%] size-20 rotate-2 text-foreground/40 delay-200 duration-700" />
+      <CheckBubble className="absolute top-[20%] right-[6%] size-20 rotate-2 text-foreground/40" />
       <DashMark className="absolute bottom-[16%] right-[10%] size-5 -rotate-12 text-[var(--color-warm)]/70" />
     </div>
   )

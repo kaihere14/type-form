@@ -6,7 +6,7 @@ import Image from "next/image"
 import { ArrowRightIcon, CheckIcon, CornerDownLeftIcon, RotateCcwIcon } from "lucide-react"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
-import { AmbientGlow, BubbleLines, DashMark, DollarBubble, FaceDoodle, Squiggle, StarBubble, YesBubble } from "~/components/decor"
+import { AmbientGlow, BubbleLines, CheckBubble, DashMark, DollarBubble, FaceDoodle, SmileyDoodle, Squiggle, StarBubble, YesBubble } from "~/components/decor"
 
 const QUESTIONS = [
   { label: "What should we call you?", placeholder: "Jane Doe" },
@@ -20,15 +20,19 @@ function HeroDoodles() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden xl:block">
       <DashMark className="absolute top-[4%] left-[6%] size-8 text-foreground/30" />
-      <BubbleLines className="animate-in fade-in zoom-in-95 absolute top-[15%] left-[2%] size-20 text-foreground/40 duration-700" />
-      <FaceDoodle className="animate-in fade-in zoom-in-95 absolute top-[33%] left-[3%] size-16 text-foreground/35 delay-150 duration-700" />
+      <BubbleLines className="absolute top-[15%] left-[2%] size-20 text-foreground/40" />
+      <FaceDoodle className="absolute top-[33%] left-[3%] size-16 text-foreground/35" />
       <DashMark className="absolute top-[8%] right-[13%] size-6 rotate-45 text-[var(--color-warm)]/70" />
-      <YesBubble className="animate-in fade-in zoom-in-95 absolute top-[16%] right-[3%] size-24 -rotate-3 text-foreground/40 delay-200 duration-700" />
-      <FaceDoodle className="animate-in fade-in zoom-in-95 absolute top-[36%] right-[1%] size-14 rotate-6 text-foreground/30 delay-300 duration-700" />
+      <YesBubble className="absolute top-[16%] right-[3%] size-24 -rotate-3 text-foreground/40" />
+      <FaceDoodle className="absolute top-[36%] right-[1%] size-14 rotate-6 text-foreground/30" />
       <DashMark className="absolute top-[47%] right-[8%] size-5 -rotate-12 text-[var(--color-warm)]/70" />
-      <FaceDoodle className="animate-in fade-in zoom-in-95 absolute bottom-[10%] left-[1%] size-16 -rotate-6 text-foreground/30 delay-200 duration-700" />
-      <DollarBubble className="animate-in fade-in zoom-in-95 absolute bottom-[4%] left-[9%] size-14 rotate-3 text-foreground/40 delay-300 duration-700" />
-      <StarBubble className="animate-in fade-in zoom-in-95 absolute bottom-[6%] right-[2%] size-24 rotate-2 text-foreground/40 delay-150 duration-700" />
+      <CheckBubble className="absolute top-[57%] left-[5%] size-20 -rotate-2 text-foreground/40" />
+      <DashMark className="absolute top-[68%] left-[12%] size-6 rotate-12 text-[var(--color-warm)]/70" />
+      <SmileyDoodle className="absolute top-[62%] right-[6%] size-16 rotate-6 text-foreground/35" />
+      <DashMark className="absolute top-[75%] right-[15%] size-5 -rotate-6 text-[var(--color-warm)]/70" />
+      <FaceDoodle className="absolute bottom-[10%] left-[1%] size-16 -rotate-6 text-foreground/30" />
+      <DollarBubble className="absolute bottom-[4%] left-[9%] size-14 rotate-3 text-foreground/40" />
+      <StarBubble className="absolute bottom-[6%] right-[2%] size-24 rotate-2 text-foreground/40" />
     </div>
   )
 }

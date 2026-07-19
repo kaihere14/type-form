@@ -11,11 +11,11 @@ import { AmbientGlow, CheckBubble, DashMark, DollarBubble, SmileyDoodle, StarBub
 function AuthDoodles() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden xl:block">
-      <SmileyDoodle className="animate-in fade-in zoom-in-95 absolute top-[12%] left-[9%] size-16 -rotate-6 text-foreground/35 duration-700" />
-      <DollarBubble className="animate-in fade-in zoom-in-95 absolute bottom-[18%] left-[7%] size-14 rotate-3 text-foreground/40 delay-150 duration-700" />
+      <SmileyDoodle className="absolute top-[12%] left-[9%] size-16 -rotate-6 text-foreground/35" />
+      <DollarBubble className="absolute bottom-[18%] left-[7%] size-14 rotate-3 text-foreground/40" />
       <DashMark className="absolute top-[8%] right-[15%] size-6 -rotate-12 text-[var(--color-warm)]/70" />
-      <CheckBubble className="animate-in fade-in zoom-in-95 absolute top-[20%] right-[6%] size-20 rotate-2 text-foreground/40 delay-200 duration-700" />
-      <StarBubble className="animate-in fade-in zoom-in-95 absolute bottom-[14%] right-[5%] size-24 -rotate-2 text-foreground/40 delay-300 duration-700" />
+      <CheckBubble className="absolute top-[20%] right-[6%] size-20 rotate-2 text-foreground/40" />
+      <StarBubble className="absolute bottom-[14%] right-[5%] size-24 -rotate-2 text-foreground/40" />
     </div>
   )
 }

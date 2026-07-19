@@ -11,11 +11,11 @@ import { AmbientGlow, BubbleLines, DashMark, FaceDoodle, StarBubble, YesBubble }
 function AuthDoodles() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden xl:block">
-      <BubbleLines className="animate-in fade-in zoom-in-95 absolute top-[14%] left-[8%] size-20 text-foreground/40 duration-700" />
-      <FaceDoodle className="animate-in fade-in zoom-in-95 absolute bottom-[16%] left-[10%] size-16 -rotate-6 text-foreground/30 delay-150 duration-700" />
+      <BubbleLines className="absolute top-[14%] left-[8%] size-20 text-foreground/40" />
+      <FaceDoodle className="absolute bottom-[16%] left-[10%] size-16 -rotate-6 text-foreground/30" />
       <DashMark className="absolute top-[10%] right-[16%] size-6 rotate-45 text-[var(--color-warm)]/70" />
-      <YesBubble className="animate-in fade-in zoom-in-95 absolute top-[18%] right-[8%] size-24 -rotate-3 text-foreground/40 delay-200 duration-700" />
-      <StarBubble className="animate-in fade-in zoom-in-95 absolute bottom-[14%] right-[7%] size-24 rotate-2 text-foreground/40 delay-300 duration-700" />
+      <YesBubble className="absolute top-[18%] right-[8%] size-24 -rotate-3 text-foreground/40" />
+      <StarBubble className="absolute bottom-[14%] right-[7%] size-24 rotate-2 text-foreground/40" />
     </div>
   )
 }
@@ -92,9 +92,8 @@ function LoginPageContent() {
       <AuthDoodles />
 
       <div className="animate-in fade-in slide-in-from-bottom-4 flex w-full max-w-sm flex-col gap-6 duration-700">
-        <Link href="/" className="flex items-center  self-center text-sm font-semibold tracking-tight">
+        <Link href="/" className="flex items-center self-center text-sm font-semibold tracking-tight">
           <Image src="/logo.png" alt="JAF logo" width={46} height={46} className="rounded-md" />
-          JAF<span className="pl-2 text-muted-foreground hidden font-normal sm:inline">— Just another form</span>
           JAF
         </Link>
         {error && (
