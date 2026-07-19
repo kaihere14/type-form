@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRightIcon, CheckIcon, CornerDownLeftIcon, RotateCcwIcon } from "lucide-react"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
@@ -138,7 +139,11 @@ export default function Home() {
       <AmbientGlow />
 
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6 md:px-10">
-        <span className="text-sm font-semibold tracking-tight">JAF</span>
+        <span className="flex items-center text-sm font-semibold tracking-tight">
+          <Image src="/logo.png" alt="JAF logo" width={46} height={46} className="rounded-md" />
+          JAF
+          <span className="pl-2 text-muted-foreground hidden font-normal sm:inline">— Just another form</span>
+        </span>
         <nav className="flex items-center gap-2 text-sm">
           <Link href="/login" className="text-muted-foreground hover:text-foreground px-3 py-1.5 transition-colors">
             Log in

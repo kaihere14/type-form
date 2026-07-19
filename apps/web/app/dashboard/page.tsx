@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Suspense, useEffect, useState } from "react"
 import { CheckCircle2Icon } from "lucide-react"
@@ -36,7 +37,10 @@ function DashboardContent() {
       <DashboardDoodles />
 
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6 md:px-10">
-        <span className="text-sm font-semibold tracking-tight">JAF</span>
+        <span className="flex items-center  text-sm font-semibold tracking-tight">
+          <Image src="/logo.png" alt="JAF logo" width={46} height={46} className="rounded-md" />
+          JAF
+        </span>
         <Button variant="ghost" size="sm" onClick={() => {
           router.push("/")
           localStorage.removeItem("accessToken")

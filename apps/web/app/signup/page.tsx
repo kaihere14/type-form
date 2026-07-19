@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { SignupForm } from "~/components/signup-form"
 import { useCreateUser } from "~/hooks/auth/use-auth"
@@ -65,8 +66,9 @@ export default function SignupPage() {
       <AuthDoodles />
 
       <div className="animate-in fade-in slide-in-from-bottom-4 flex w-full max-w-sm flex-col gap-6 duration-700">
-        <Link href="/" className="self-center text-sm font-semibold tracking-tight">
-          JAF
+        <Link href="/" className="flex items-center self-center text-sm font-semibold tracking-tight">
+          <Image src="/logo.png" alt="JAF logo" width={46} height={46} className="rounded-md" />
+          JAF<span className="pl-2 text-muted-foreground hidden font-normal sm:inline">— Just another form</span>
         </Link>
         {error && (
           <div className="rounded-md border border-destructive bg-destructive/10 p-3 text-sm text-destructive">

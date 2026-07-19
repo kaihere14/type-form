@@ -17,8 +17,18 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "JAF",
-  description: "Just Another Form",
+  title: "JAF - Just another form",
+  description: "Build forms that feel like a conversation, not a spreadsheet.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
+  openGraph: {
+    title: "JAF - Just another form",
+    description: "Build forms that feel like a conversation, not a spreadsheet.",
+    images: ["/logo.png"],
+  },
 };
 
 export default function RootLayout({

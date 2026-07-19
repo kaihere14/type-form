@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter, useSearchParams } from "next/navigation"
 import { LoginForm } from "~/components/login-form"
 import { useLoginUser, useLoginWithProvider } from "~/hooks/auth/use-auth"
@@ -91,7 +92,9 @@ function LoginPageContent() {
       <AuthDoodles />
 
       <div className="animate-in fade-in slide-in-from-bottom-4 flex w-full max-w-sm flex-col gap-6 duration-700">
-        <Link href="/" className="self-center text-sm font-semibold tracking-tight">
+        <Link href="/" className="flex items-center  self-center text-sm font-semibold tracking-tight">
+          <Image src="/logo.png" alt="JAF logo" width={46} height={46} className="rounded-md" />
+          JAF<span className="pl-2 text-muted-foreground hidden font-normal sm:inline">— Just another form</span>
           JAF
         </Link>
         {error && (
