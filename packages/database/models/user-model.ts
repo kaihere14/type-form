@@ -2,6 +2,7 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 export interface IUser extends Document {
+  id?: string;
   email: string;
   password: string;
   salt: string;

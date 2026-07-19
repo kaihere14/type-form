@@ -39,7 +39,7 @@ export default function SignupPage() {
     try {
       const { id } = await mutateAsync({ name: formData.get("name") as string, email: formData.get("email") as string, password: password as string })
       if (id) {
-        router.push("/dashboard?from=signup")
+        router.push("/login")
       }
     } catch (error) {
       setError(error instanceof Error ? error.message : String(error))

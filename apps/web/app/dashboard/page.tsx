@@ -37,7 +37,11 @@ function DashboardContent() {
 
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6 md:px-10">
         <span className="text-sm font-semibold tracking-tight">JAF</span>
-        <Button variant="ghost" size="sm" onClick={() => router.push("/")}>
+        <Button variant="ghost" size="sm" onClick={() => {
+          router.push("/")
+          localStorage.removeItem("accessToken")
+          localStorage.removeItem("refreshToken")
+        }}>
           Log out
         </Button>
       </header>

@@ -37,9 +37,11 @@ export default function LoginPage() {
 
     setError("")
     try {
-      const { id } = await mutateAsync({ email: formData.get("email") as string, password: formData.get("password") as string })
-      if (id) {
+      const { user, refreshToken, accessToken } = await mutateAsync({ email: formData.get("email") as string, password: formData.get("password") as string })
+      if (user && accessToken && refreshToken) {
         router.push("/dashboard?from=login")
+        localStorage.setItem("accessToken", accessToken)
+        localStorage.setItem("refreshToken", refreshToken)
       }
     } catch (error) {
       setError(error instanceof Error ? error.message : String(error))
