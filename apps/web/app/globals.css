@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html::selection{
+    color: var(--warm);
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

@@ -1,95 +1,33 @@
 "use client"
 
-import Link from "next/link"
-import Image from "next/image"
-import { useRouter, useSearchParams } from "next/navigation"
-import { Suspense, useEffect, useState } from "react"
-import { CheckCircle2Icon } from "lucide-react"
-import { Button } from "~/components/ui/button"
-import { AmbientGlow, CheckBubble, DashMark, StarBubble, YesBubble } from "~/components/decor"
+import { useSearchParams } from "next/navigation"
+import { Suspense, useEffect } from "react"
+import { toast } from "sonner"
 
-function DashboardDoodles() {
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden xl:block">
-      <YesBubble className="absolute top-[16%] left-[9%] size-24 -rotate-3 text-foreground/40" />
-      <StarBubble className="absolute bottom-[18%] left-[7%] size-24 rotate-2 text-foreground/40" />
-      <DashMark className="absolute top-[12%] right-[14%] size-6 rotate-45 text-[var(--color-warm)]/70" />
-      <CheckBubble className="absolute top-[20%] right-[6%] size-20 rotate-2 text-foreground/40" />
-      <DashMark className="absolute bottom-[16%] right-[10%] size-5 -rotate-12 text-[var(--color-warm)]/70" />
-    </div>
-  )
-}
+import { FormsTable } from "~/components/dashboard/forms-table"
 
-function DashboardContent() {
-  const router = useRouter()
+function SignupToast() {
   const searchParams = useSearchParams()
   const from = searchParams.get("from")
 
-  const title = from === "signup" ? "Account created" : "Welcome back"
-  const description =
-    from === "signup"
-      ? "Your account is ready. Your forms will live here once form building ships."
-      : "You're signed in. Your forms will live here once form building ships."
+  useEffect(() => {
+    if (from === "signup") {
+      toast.success("Account created", {
+        description: "Your account is ready to go.",
+      })
+    }
+  }, [from])
 
-  return (
-    <div className="relative flex min-h-svh flex-col overflow-hidden">
-      <AmbientGlow />
-      <DashboardDoodles />
-
-      <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6 md:px-10">
-        <span className="flex items-center  text-sm font-semibold tracking-tight">
-          <Image src="/logo.png" alt="JAF logo" width={46} height={46} className="rounded-md" />
-          JAF
-        </span>
-        <Button variant="ghost" size="sm" onClick={() => {
-          router.push("/")
-          localStorage.removeItem("accessToken")
-          localStorage.removeItem("refreshToken")
-        }}>
-          Log out
-        </Button>
-      </header>
-
-      <div className="relative flex flex-1 flex-col items-center justify-center gap-6 p-6">
-        <div className="animate-in fade-in zoom-in-95 flex flex-col items-center gap-5 text-center duration-500">
-          <div className="flex size-14 items-center justify-center rounded-full bg-[color-mix(in_oklch,var(--color-warm)_18%,transparent)]">
-            <CheckCircle2Icon className="size-7 text-[var(--color-warm)]" />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
-            <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">
-              {description}
-            </p>
-          </div>
-
-          <Button asChild variant="outline" size="sm" className="mt-2">
-            <Link href="/">Back to home</Link>
-          </Button>
-        </div>
-      </div>
-    </div>
-  )
+  return null
 }
 
 export default function DashboardPage() {
-  const router = useRouter()
-
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    if (!localStorage.getItem("accessToken") || !localStorage.getItem("refreshToken")) {
-      router.push("/login");
-    } else {
-      setChecked(true);
-    }
-  }, [router]);
-
-  if (!checked) return null;
-
   return (
-    <Suspense>
-      <DashboardContent />
-    </Suspense>
+    <>
+      <Suspense>
+        <SignupToast />
+      </Suspense>
+      <FormsTable />
+    </>
   )
 }

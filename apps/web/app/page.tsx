@@ -149,11 +149,8 @@ export default function Home() {
           <span className="pl-2 text-muted-foreground hidden font-normal sm:inline">— Just another form</span>
         </span>
         <nav className="flex items-center gap-2 text-sm">
-          <Link href="/login" className="text-muted-foreground hover:text-foreground px-3 py-1.5 transition-colors">
-            Log in
-          </Link>
           <Button asChild size="sm">
-            <Link href="/signup">Get started</Link>
+            <Link href="/login">Get started</Link>
           </Button>
         </nav>
       </header>
@@ -166,7 +163,7 @@ export default function Home() {
             Ask one question at a{" "}
             <span className="relative inline-block whitespace-nowrap">
               time.
-              <Squiggle className="absolute -bottom-3 left-0 h-3 w-full text-[var(--color-warm)]" />
+              <Squiggle className="absolute -bottom-3 left-0 h-3 w-full text-(--color-warm)" />
             </span>
           </h1>
 
@@ -178,7 +175,7 @@ export default function Home() {
 
           <div className="flex flex-col items-center gap-2 pt-2">
             <Button asChild size="lg">
-              <Link href="/signup">
+              <Link href="/login">
                 Create a free form
                 <ArrowRightIcon className="transition-transform group-hover/button:translate-x-0.5" />
               </Link>

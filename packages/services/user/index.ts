@@ -98,6 +98,20 @@ class UserService {
     };
   }
 
+  public verifyAccessToken(token: string): { id: string } {
+    const payload = jwt.verify(token, env.JWT_TOKEN_SECRET);
+    if (typeof payload === "string" || typeof payload.id !== "string") {
+      throw new Error("Invalid access token payload");
+    }
+    return { id: payload.id };
+  }
+
+  public async getUserById(id: string) {
+    const user = await User.findById(id);
+    if (!user) throw new Error("User not found");
+    return this.toPublicUser(user);
+  }
+
   public async createUser(input: CreateUserInputSchema) {
     const { email, name, password } = await createUserInputSchema.parseAsync(input);
     const salt = crypto.randomBytes(16).toString("hex");

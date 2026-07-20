@@ -1,7 +1,7 @@
-import { z } from "../../schema";
+import { z, zodUndefinedModel } from "../../schema";
 import { userService } from "../../services";
 import { createUserInputSchema, loginUserInputSchema } from "@repo/services/user/model";
-import { publicProcedure, router } from "../../trpc";
+import { protectedProcedure, publicProcedure, router } from "../../trpc";
 import { generatePath } from "../../utils/path-generator";
 import { googleCallbackInputSchema, LoginWithProviderSchema, PublicUserSchema } from "./model";
 
@@ -46,4 +46,12 @@ export const authRouter = router({
       return { redirect };
     }),
 
+  me: protectedProcedure
+    .meta({ openapi: { method: "GET", path: getPath("/me"), tags: TAGS, protect: true } })
+    .input(zodUndefinedModel)
+    .output(z.object({ user: PublicUserSchema }))
+    .query(async ({ ctx }) => {
+      const user = await userService.getUserById(ctx.user.id);
+      return { user };
+    }),
 });
