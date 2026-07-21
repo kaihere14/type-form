@@ -18,7 +18,7 @@ This Turborepo includes the following packages/apps:
 ### Apps and Packages
 
 - `apps/api`: Backend API service built with TypeScript.
-- `apps/web`: [Next.js](https://nextjs.org/) frontend application featuring the drag-and-drop form builder, dashboard, and workspace management.
+- `apps/web`: [Next.js](https://nextjs.org/) frontend application featuring the drag-and-drop form builder, public-facing form submission pages, response analytics with visual breakdowns, dashboard, and workspace management.
 - `packages/database`: Database models and schemas for forms, folders, responses, and workspaces.
 - `packages/services`: Core business logic services including form, folder, response, user, and workspace management.
 - `packages/trpc`: Shared tRPC router, context, and client configurations.
