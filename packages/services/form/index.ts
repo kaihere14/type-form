@@ -126,7 +126,13 @@ class FormService {
 
     if (title !== undefined) setUpdate.title = title;
     if (status !== undefined) setUpdate.status = status;
-    if (questions !== undefined) setUpdate.questions = questions;
+    if (questions !== undefined) {
+      const existingById = new Map(existing.questions.map((question) => [question._id.toString(), question]));
+      setUpdate.questions = questions.map(({ id, ...rest }) => {
+        const matched = id ? existingById.get(id) : undefined;
+        return matched ? { ...rest, _id: matched._id } : rest;
+      });
+    }
 
     if (folderId !== undefined) {
       if (folderId === null) {

@@ -16,14 +16,14 @@ export function StarRating({
   value?: number
   onChange?: (value: number) => void
   readOnly?: boolean
-  size?: "default" | "sm"
+  size?: "default" | "sm" | "lg"
 }) {
   const [hovered, setHovered] = React.useState<number | null>(null)
   const displayValue = hovered ?? value
 
   return (
     <div
-      className="flex items-center gap-1"
+      className={cn("flex items-center", size === "lg" ? "gap-2" : "gap-1")}
       onMouseLeave={() => setHovered(null)}
       role={readOnly ? undefined : "radiogroup"}
       aria-label="Rating"
@@ -45,7 +45,7 @@ export function StarRating({
         >
           <StarIcon
             className={cn(
-              size === "sm" ? "size-4" : "size-6",
+              size === "sm" ? "size-4" : size === "lg" ? "size-10" : "size-6",
               star <= displayValue && "fill-[var(--color-warm)] text-[var(--color-warm)]",
             )}
           />

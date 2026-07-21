@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const questionInputSchema = z.object({
+  id: z.string().optional(),
   type: z.enum(["short_text", "long_text", "multiple_choice", "checkbox", "dropdown", "email", "number", "date", "rating"]),
   label: z.string().min(1).max(200),
   description: z.string().max(500).optional(),

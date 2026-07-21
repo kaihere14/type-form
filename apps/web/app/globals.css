@@ -134,6 +134,9 @@ html::selection{
   html {
     @apply font-sans;
   }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @keyframes caret-blink {

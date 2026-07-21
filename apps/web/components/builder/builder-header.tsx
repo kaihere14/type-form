@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowLeftIcon, Share2Icon } from "lucide-react"
+import { ArrowLeftIcon, BarChart3Icon, Share2Icon } from "lucide-react"
 import { toast } from "sonner"
 
 import { Badge } from "~/components/ui/badge"
@@ -22,17 +22,21 @@ export function BuilderHeader({
   status,
   shareCode,
   saveState,
+  responseCount,
   onTitleChange,
   onStatusChange,
   onBack,
+  onViewResponses,
 }: {
   title: string
   status: FormStatus
   shareCode: string
   saveState: SaveState
+  responseCount: number
   onTitleChange: (title: string) => void
   onStatusChange: (status: FormStatus) => void
   onBack: () => void
+  onViewResponses: () => void
 }) {
   async function handleShare() {
     const link = `${window.location.origin}/f/${shareCode}`
@@ -68,6 +72,14 @@ export function BuilderHeader({
             <SelectItem value="closed">Closed</SelectItem>
           </SelectContent>
         </Select>
+
+        <Button variant="outline" onClick={onViewResponses}>
+          <BarChart3Icon />
+          Responses
+          <Badge variant="secondary" className="ml-1 tabular-nums">
+            {responseCount.toLocaleString()}
+          </Badge>
+        </Button>
 
         <Button variant="outline" onClick={handleShare}>
           <Share2Icon />

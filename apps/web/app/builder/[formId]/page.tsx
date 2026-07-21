@@ -25,6 +25,7 @@ import { CHOICE_QUESTION_TYPES, QUESTION_TYPE_CONFIG, type QuestionType } from "
 import type { BuilderQuestion } from "~/components/builder/types"
 import { useAuthGuard } from "~/hooks/auth/use-auth-guard"
 import { useForm } from "~/hooks/dashboard/use-form"
+import { cn } from "~/lib/utils"
 import { trpc } from "~/trpc/client"
 
 type FormStatus = "draft" | "live" | "closed"
@@ -44,6 +45,7 @@ function toBuilderQuestions(questions: ServerQuestion[]): BuilderQuestion[] {
     .sort((a, b) => a.order - b.order)
     .map((q) => ({
       localId: crypto.randomUUID(),
+      id: q.id,
       type: q.type,
       label: q.label,
       description: q.description,
@@ -53,11 +55,22 @@ function toBuilderQuestions(questions: ServerQuestion[]): BuilderQuestion[] {
     }))
 }
 
-function CanvasDropzone({ children }: { children: React.ReactNode }) {
-  const { setNodeRef } = useDroppable({ id: "canvas-dropzone" })
+function CanvasDropzone({ children, isEmpty }: { children: React.ReactNode; isEmpty: boolean }) {
+  const { setNodeRef, isOver } = useDroppable({ id: "canvas-dropzone" })
   return (
     <div ref={setNodeRef} className="flex min-h-[60vh] flex-col gap-3">
       {children}
+      <div
+        className={cn(
+          "text-muted-foreground rounded-xl border border-dashed text-center text-sm transition-colors",
+          isEmpty ? "p-12" : "p-6",
+          isOver && "border-(--color-warm) bg-warm/5 text-foreground",
+        )}
+      >
+        {isEmpty
+          ? "Click or drag a question type from the left to get started."
+          : "Drag a question type here to add another question"}
+      </div>
     </div>
   )
 }
@@ -66,25 +79,25 @@ export default function BuilderPage() {
   const checked = useAuthGuard()
   const router = useRouter()
   const { formId } = useParams<{ formId: string }>()
-  const { form, isLoading, updateForm } = useForm(formId)
+  const { form, isLoading, isFetching, updateForm } = useForm(formId)
   const utils = trpc.useUtils()
 
   const [title, setTitle] = React.useState("")
   const [status, setStatus] = React.useState<FormStatus>("draft")
   const [questions, setQuestions] = React.useState<BuilderQuestion[]>([])
   const [saveState, setSaveState] = React.useState<"idle" | "saving" | "saved">("idle")
-  const isInitialized = React.useRef(false)
+  const loadedFormId = React.useRef<string | null>(null)
 
   React.useEffect(() => {
-    if (!form || isInitialized.current) return
+    if (!form || isFetching || loadedFormId.current === formId) return
     setTitle(form.title)
     setStatus(form.status)
     setQuestions(toBuilderQuestions(form.questions))
-    isInitialized.current = true
-  }, [form])
+    loadedFormId.current = formId
+  }, [form, formId, isFetching])
 
   React.useEffect(() => {
-    if (!isInitialized.current || !formId) return
+    if (!formId || loadedFormId.current !== formId) return
     setSaveState("saving")
     const timeout = setTimeout(() => {
       updateForm.mutate(
@@ -92,9 +105,10 @@ export default function BuilderPage() {
           id: formId,
           title: title.trim() || "Untitled form",
           status,
-          questions: questions.map(({ localId, label, ...rest }) => ({
+          questions: questions.map(({ localId, label, options, ...rest }) => ({
             ...rest,
             label: label.trim() || "Untitled question",
+            options: options?.map((option, index) => option.trim() || `Option ${index + 1}`),
           })),
         },
         {
@@ -180,7 +194,7 @@ export default function BuilderPage() {
 
   if (!checked) return null
 
-  if (isLoading) {
+  if (isLoading || (isFetching && loadedFormId.current !== formId)) {
     return (
       <div className="text-muted-foreground flex min-h-svh items-center justify-center text-sm">Loading…</div>
     )
@@ -200,15 +214,17 @@ export default function BuilderPage() {
   }
 
   return (
-    <div className="flex min-h-svh flex-col">
+    <div className="flex h-svh flex-col">
       <BuilderHeader
         title={title}
         status={status}
         shareCode={form.shareCode}
         saveState={saveState}
+        responseCount={form.responseCount}
         onTitleChange={setTitle}
         onStatusChange={setStatus}
         onBack={() => router.push("/dashboard")}
+        onViewResponses={() => router.push(`/builder/${formId}/responses`)}
       />
 
       <DndContext
@@ -218,19 +234,14 @@ export default function BuilderPage() {
         onDragEnd={handleDragEnd}
         onDragCancel={() => setActiveDragItem(null)}
       >
-        <div className="flex flex-1 gap-6 overflow-hidden p-4 md:p-6">
-          <aside className="w-64 shrink-0">
+        <div className="flex min-h-0 flex-1 gap-6 p-4 md:p-6">
+          <aside className="h-fit w-64 shrink-0 self-start">
             <QuestionTypePalette onAddQuestion={(type) => addQuestion(type)} />
           </aside>
 
-          <div className="mx-auto w-full max-w-2xl overflow-y-auto pb-12">
+          <div className="mx-auto min-h-0 w-full max-w-2xl overflow-y-auto pb-12 no-scrollbar">
             <SortableContext items={questions.map((q) => q.localId)} strategy={verticalListSortingStrategy}>
-              <CanvasDropzone>
-                {questions.length === 0 && (
-                  <div className="text-muted-foreground rounded-xl border border-dashed p-12 text-center text-sm">
-                    Click or drag a question type from the left to get started.
-                  </div>
-                )}
+              <CanvasDropzone isEmpty={questions.length === 0}>
                 {questions.map((question) => (
                   <QuestionCard
                     key={question.localId}
